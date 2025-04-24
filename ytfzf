@@ -611,7 +611,7 @@ refresh_inv_instances() {
 		#   - Fetches the avaiable invidious instances
 		#   - Gets the one where the api is public
 		#   - Puts them in a list
-		curl -X GET -sSf "$instances_url" | jq -r '[.[]|select(.[1].api==true)|.[1].uri]|join("\n")' >"$instances_file"
+		curl -X GET -sSf "$instances_url" | jq -r '[.[] | select(.[1].type | contains("https")) ] | .[][1].uri' >"$instances_file"
 }
 
 get_invidious_instances() {
